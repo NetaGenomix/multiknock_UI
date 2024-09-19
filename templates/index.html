@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<h1>Run MultiKnock</h1>
+
+{% endblock %}
+
+{% block body %}
+<form action="/submit" method="POST" enctype="multipart/form-data">
+    <h2>Library Parameters:</h2><br>
+    <label for="main_dir">Families Main Directory:</label>
+    <input type="text" id="main_dir" name="main_dir">
+    <label for="families_names_file">family names file:</label>
+    <input type="text" id="families_names_file" name="families_names_file">
+    <label for="crispys_dir_name">Crispys Directory Name:</label>
+    <input type="text" id="crispys_dir_name" name="crispys_dir_name">
+    <label for="post_process_dir_name">Post Process Directory Name:</label>
+    <input type="text" id="post_process_dir_name" name="post_process_dir_name">
+    <label for="library_output_path">Library Output Path:</label>
+    <input type="text" id="library_output_path" name="library_output_path">
+    <label for="organism">Organism:</label>
+    <input type="text" id="organism" name="organism">
+
+<h2>Crispys Parameters:</h2>
+    <label for="crispys_output_name">Crispys Output Name</label>
+    <input type="text" id="crispys_output_name" name="crispys_output_name">
+    <label for="design_algorithm">Design Algorithm:</label>
+    <select id="design_algorithm" name="design_algorithm">
+        <option value="1">Gene Homology</option>
+        <option value="2">Defualt alg</option>
+    </select>
+    <label for="where_in_gene">Where Target in Gene</label>
+    <input type="float" id="where_in_gene" name="where_in_gene", value="0.67">
+    <label for="crispys_off_t_func">Off-target Scoring Function</label>
+    <select id="crispys_off_t_func" name="crispys_off_t_func">
+        <option value="1">MOFF</option>
+        <option value="2">CDS</option>
+    </select>
+    <label for="crispys_off_t_threshold">OffT Scoring Threshold</label>
+    <input type="float" id="crispys_off_t_threshold" name="crispys_off_t_threshold">
+    <label for="genes_of_interest_file">Genes of Interest File</label>
+    <input type="file" accept=".csv" id="genes_of_interest_file" name="genes_of_interest_file">
+    <label for="on_scoring_function">On-target Scoring Function</label>
+    <select id="on_scoring_function" name="on_scoring_function">
+        <option value="1">ucrisper</option>
+    </select>
+    <label for="internal_node_candidates">Internal Node Candidates</label>
+    <input type="int" id="internal_node_candidates" name="internal_node_candidates",  value="100">
+    <label for="max_target_polymorphic_sites">Max Target Polymorphic Sites</label>
+    <input type="int" id="max_target_polymorphic_sites" name="max_target_polymorphic_sites",  value="12">
+    <label for="pams">PAMs</label>
+    <input type="checkbox" id="pams" name="pams">
+    <label for="slim_output">Slim Output</label>
+    <input type="checkbox" id="slim_output" name="slim_output">
+    <label for="singletons">Singletons</label>
+    <input type="checkbox" id="singletons" name="singletons">
+    <label for="crispys_number_of_singletons">Number of Singletons</label>
+    <input type="int" id="crispys_number_of_singletons" name="crispys_number_of_singletons",  value="50">
+    <label for="run_for_multiplex">Run for Multiplex</label>
+    <input type="checkbox" id="run_for_multiplex" name="run_for_multiplex">
+    
+    <h2>Post-Process Parameters:</h2>
+    <label for="method">Method:</label>
+    <select id="method" name="method">
+        <option value="1">Multiplex</option>
+        <option value="2">Single</option>
+    </select>
+    <label for="genome_by_chr_file">Genome by Chr:</label>
+    <input type="file" id="genome_by_chr_file" name="genome_by_chr_file">
+    <!-- gff_file -->
+    <label for="gff_file">GFF File</label>
+    <input type="file" id="gff_file" name="gff_file">
+    <label for="post_process_output_name">Post Process Output Name</label>
+    <input type="text" id="post_process_output_name" name="post_process_output_name">
+    <!-- pam_file -->
+    <label for="pam_file">PAM File:</label>
+    <input type="file" id="pam_file" name="pam_file">
+    <!-- min_distance_threshold -->
+    <label for="min_distance_threshold">Min Distance Threshold:</label>
+    <input type="int" id="min_distance_threshold" name="min_distance_threshold",  value="50">
+    <!-- <scoring_function -->
+    <label for="post_process_offt_scoring_function">Offt Scoring Function:</label>
+    <select id="post_process_offt_scoring_function" name="post_process_offt_scoring_function">
+        <option value="1">MOFF</option>
+        <option value="2">CDS</option>
+    </select>
+     <!-- offt_treshold -->
+     <label for="post_process_off_t_threshold">OffT Scoring Threshold:</label>
+     <input type="float" id="post_process_off_t_threshold" name="post_process_off_t_threshold">
+     <!-- off_target_max_mismatches -->
+    <label for="off_target_max_mismatches">Off Target Max Mismatches:</label>
+    <input type="int" id="off_target_max_mismatches" name="off_target_max_mismatches" ,  value="4">
+     <!-- number_of_singletons -->
+    <label for="post_process_number_of_singletons">Number of Singletons:</label>
+    <input type="int" id="post_process_number_of_singletons" name="post_process_number_of_singletons",  value="15">
+    <!-- restriction_site -->
+    <label for="restriction_site">Restriction Site:</label>
+    <input type="text" id="restriction_site" name="restriction_site", value="GGTCTC">
+    <label for="threads">Threads</label>
+    <input type="int" id="threads" name="threads",  value="1">
+    <!-- candidates_per_node -->
+    <label for="candidates_per_node">Candidates per Node:</label>
+    <input type="int" id="candidates_per_node" name="candidates_per_node">
+    <h2>Global Parameters</h2>
+    <label for="sparsity">Sparsity</label>
+    <input type="float" id="sparsity" name="sparsity",  value="0.1"><br><br>
+    <input type="submit" value="Submit">
+
+</form>
+
+{% endblock %}
